@@ -20,41 +20,48 @@ Player.prototype.update = function(dt) {
 Player.prototype.handleInput = function (key) {
     switch(key) {
         case 'left':
-            if(player.x > leftBorder){
-                player.x += moveLeft;
+            if(this.x > leftBorder){
+                this.x += moveLeft;
             }
             break;
         case 'up':
-            if(player.y == canvasLastRow){
-                player.won();
+            if(this.y == canvasLastRow){
+                this.won();
             }
-            else if(player.y > topBorder){
-                player.y += moveUp;
+            else if(this.y > topBorder){
+                this.y += moveUp;
             }
             break;
         case 'right':
-            if(player.x <= rightBorder){
-                player.x += moveRight;
+            if(this.x <= rightBorder){
+                this.x += moveRight;
             }
             break;
         case 'down':
-            if(player.y < bottomBorder){
-                player.y += moveDown;
+            if(this.y < bottomBorder){
+                this.y += moveDown;
             }
             break;
     }
 };
 
 Player.prototype.died = function() {
-    player.x = playerStartPositionX;
-    player.y = playerStartPositionY;
+    this.startPosition();
+    //this.x = playerStartPositionX;
+    //this.y = playerStartPositionY;
     snackbar(playerDiedMessage);
     manageScore(false);
 };
 
 Player.prototype.won = function() {
-    player.x = playerStartPositionX;
-    player.y = playerStartPositionY;
+    this.startPosition();
+    //this.x = playerStartPositionX;
+    //this.y = playerStartPositionY;
     snackbar(playerWonMessage);
     manageScore(true);
+};
+
+Player.prototype.startPosition = function() {
+    this.x = playerStartPositionX;
+    this.y = playerStartPositionY;
 };
