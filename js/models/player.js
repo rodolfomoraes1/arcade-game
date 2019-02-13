@@ -47,16 +47,12 @@ Player.prototype.handleInput = function (key) {
 
 Player.prototype.died = function() {
     this.startPosition();
-    //this.x = playerStartPositionX;
-    //this.y = playerStartPositionY;
     snackbar(playerDiedMessage);
     manageScore(false);
 };
 
 Player.prototype.won = function() {
     this.startPosition();
-    //this.x = playerStartPositionX;
-    //this.y = playerStartPositionY;
     snackbar(playerWonMessage);
     manageScore(true);
 };
