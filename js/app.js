@@ -1,39 +1,10 @@
-// Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+var player = new Player(playerStartPositionX, playerStartPositionY);
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-};
+var topRowEnemy = new Enemy(enemyStartPositionX, topRowPositionY, topRowEnemyVelocity);
+var middleRowEnemy = new Enemy(enemyStartPositionX, middleRowPositionY, middleRowEnemyVelocity);
+var bottomRowEnemy = new Enemy(enemyStartPositionX, bottomRowPositionY, bottomRowEnemyVelocity);
+var allEnemies = [topRowEnemy, middleRowEnemy, bottomRowEnemy];
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -44,3 +15,48 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function checkCollisions() {
+    checkCollisionByColumn(player.y, bottomRowEnemy);
+    checkCollisionByColumn(player.y + middleRowPositionYCorrection, middleRowEnemy);
+    checkCollisionByColumn(player.y + topRowPositionYCorrection, topRowEnemy);
+}
+
+function checkCollisionByColumn(playerRowPosition, enemy) {
+    if(isCollided(playerRowPosition, enemy, firstColumnDeathIntervalBegin, firstColumnDeathIntervalEnd, firstColumn) ||
+        isCollided(playerRowPosition, enemy, secondColumnDeathIntervalBegin, secondColumnDeathIntervalEnd, secondColumn) ||
+        isCollided(playerRowPosition, enemy, thirdColumnDeathIntervalBegin, thirdColumnDeathIntervalEnd, thirdColumn) ||
+        isCollided(playerRowPosition, enemy, fourthColumnDeathIntervalBegin, fourthColumnDeathIntervalEnd, fourthColumn) ||
+        isCollided(playerRowPosition, enemy, fifthColumnDeathIntervalBegin, fifthColumnDeathIntervalEnd, fifthColumn)
+    ){
+        player.died();
+    }
+}
+
+function isCollided(playerRowPosition, enemy, playerPositionXIntervalBegin, playerPositionXIntervalEnd, column){
+    return (enemy.y == playerRowPosition &&
+        player.x == column &&
+        enemy.x > playerPositionXIntervalBegin &&
+        enemy.x < playerPositionXIntervalEnd
+    );
+}
+
+function snackbar(message) {
+    var snackbarElement = document.getElementById("snackbar");
+    snackbarElement.innerHTML = message;
+    snackbarElement.className = "show";
+    setTimeout(function(){ snackbarElement.className = snackbarElement.className.replace("show", ""); }, 2000);
+}
+
+function manageScore(won) {
+    var score = document.getElementById("score");
+    var playerScore = player.getPlayerScore();
+    if(won){
+        playerScore += 1;
+    } else{
+        if(playerScore > 0){
+            playerScore -= 1;
+        }
+    }
+    score.innerHTML = player.setPlayerScore(playerScore);
+}

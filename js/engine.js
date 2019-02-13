@@ -18,8 +18,18 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas element's height/width and add it to the DOM.
      */
-    var doc = global.document,
-        win = global.window,
+    var doc = global.document;
+
+    var scoreLabel = doc.createElement('h2');
+    scoreLabel.innerText = 'Score: ';
+    doc.body.appendChild(scoreLabel);
+
+    var score = doc.createElement('h3');
+    score.id = 'score';
+    score.innerText = 0;
+    doc.body.appendChild(score);
+
+    var win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
@@ -27,6 +37,10 @@ var Engine = (function(global) {
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
+
+    var snackbarElement = doc.createElement('div');
+    snackbarElement.id = 'snackbar';
+    doc.body.appendChild(snackbarElement);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -79,7 +93,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -93,7 +107,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        // player.update();
     }
 
     /* This function initially draws the "game level", it will then call
