@@ -4,7 +4,7 @@ Project developed using javascript ES5 version for the Advanced Web Front-End co
 ## Table of Contents
 
 - [Instructions](#instructions)
-- [Features Developed](#featuresDeveloped)
+- [Features Developed](#features-developed)
 - [Authors](#authors)
 
 ## Instructions
