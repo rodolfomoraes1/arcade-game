@@ -10,8 +10,7 @@ Project developed using javascript ES5 version for the Advanced Web Front-End co
 ## Instructions
 
 ### Run
-Download zip file or clone the repository and run the index.html file on the browser.
-Or click [here](https://rodolfomoraes1.github.io/frontend-nanodegree-arcade-game/).
+Download zip file or clone the repository and run the index.html file on the browser or click [here](https://rodolfomoraes1.github.io/frontend-nanodegree-arcade-game/).
 
 ### Play
 Use the arrows from the keyboard to movement the player.
