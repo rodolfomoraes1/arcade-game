@@ -1,5 +1,5 @@
 # Classic Arcade Game Clone Project
-Project developed using javascript ES5 version for the Advanced Web Front-End course from Udacity.
+Project developed using javascript ES5 version for the Udacity's Advanced Web Front-End course.
 
 ## Table of Contents
 
